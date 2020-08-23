@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Post from "./Post";
+import ImageUpload from "./ImageUpload";
 import { Modal, Button, Input } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import db, { auth } from "./firebase";
@@ -94,6 +95,12 @@ function App() {
 
   return (
     <div className="app">
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ) : (
+        <h3>Sorry you need to login to upload</h3>
+      )}
+
       <Modal open={open} onClose={() => setOpen(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signup">
