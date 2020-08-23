@@ -169,11 +169,11 @@ function App() {
           alt=""
         />
         {user ? (
-          <Button onClick={() => auth.signOut()}>Logout</Button>
+          <Button onClick={() => auth.signOut()}>로그아웃</Button>
         ) : (
           <div className="app__loginContainer">
-            <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-            <Button onClick={() => setOpen(true)}>Sign Up</Button>
+            <Button onClick={() => setOpenSignIn(true)}>로그인</Button>
+            <Button onClick={() => setOpen(true)}>회원가입</Button>
           </div>
         )}
       </div>
@@ -210,7 +210,7 @@ function App() {
       {user?.displayName ? (
         <ImageUpload username={user.displayName} />
       ) : (
-        <h3>Sorry you need to login to upload</h3>
+        <h3>로그인해주세요</h3>
       )}
     </div>
   );

@@ -17,7 +17,12 @@ function Post({ postId, user, username, caption, imageUrl }) {
         .collection("comments")
         .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) => {
-          setComments(snapshot.docs.map((doc) => doc.data()));
+          setComments(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              comment: doc.data(),
+            }))
+          );
         });
     }
 
@@ -55,30 +60,32 @@ function Post({ postId, user, username, caption, imageUrl }) {
       </h4>
 
       <div className="post__comments">
-        {comments.map((comment) => (
-          <p>
+        {comments.map(({ id, comment }) => (
+          <p key={id}>
             <strong>{comment.username}</strong> {comment.text}
           </p>
         ))}
       </div>
 
-      <form className="post__commentBox">
-        <input
-          className="post__input"
-          type="text"
-          placeholder="Add a comment..."
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-        <button
-          className="post__button"
-          disabled={!comment}
-          type="submit"
-          onClick={postComment}
-        >
-          Post
-        </button>
-      </form>
+      {user && (
+        <form className="post__commentBox">
+          <input
+            className="post__input"
+            type="text"
+            placeholder="Add a comment..."
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+          <button
+            className="post__button"
+            disabled={!comment}
+            type="submit"
+            onClick={postComment}
+          >
+            Post
+          </button>
+        </form>
+      )}
     </div>
   );
 }
